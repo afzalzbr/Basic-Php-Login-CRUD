@@ -43,7 +43,7 @@ class DishDetail extends React.Component {
                                 <li key={comment.id}>
                                     {comment.comment}
                                     <br />
-                                    -- {comment.author + " " + comment.date}
+                                    <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
                                 </li>
                             )
                         })}
@@ -56,10 +56,15 @@ class DishDetail extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                {this.renderDish(this.props.dish)}
-                {this.renderComments(this.props.dish === null ? null : this.props.dish.comments)}
-            </div>
+            this.props.dish === null || this.props.dish === undefined ?
+                <div></div>
+                :
+                <div className="container">
+                    <div className="row">
+                        {this.renderDish(this.props.dish)}
+                        {this.renderComments(this.props.dish === null ? null : this.props.dish.comments)}
+                    </div>
+                </div>
         )
     }
 }
